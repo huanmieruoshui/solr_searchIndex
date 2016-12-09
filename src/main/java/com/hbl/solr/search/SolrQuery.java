@@ -27,6 +27,7 @@ import net.sf.json.JsonConfig;
 */
 public class SolrQuery {
 
+	@SuppressWarnings("rawtypes")
 	public SearchResult getSolrQuery(String param, String host) {
 		CloseableHttpClient client = SolrUtil.getHttpClient();
 		SearchResult result = new SearchResult();
@@ -43,7 +44,7 @@ public class SolrQuery {
 	        String bodyAsString = EntityUtils.toString(response.getEntity()); 
 	        //System.out.println(bodyAsString);
 	        if(StringUtils.isNotBlank(bodyAsString)){ // 判断是否为null或者"",去空格
-	        	JSONObject obj = new JSONObject().fromObject(bodyAsString);
+	        	JSONObject obj = JSONObject.fromObject(bodyAsString);
 	        	JsonConfig jsonConfig = new JsonConfig();
 	    		jsonConfig.setRootClass(SearchResult.class);
 	    		Map<String, Class> classMap = new HashMap<String, Class>();
